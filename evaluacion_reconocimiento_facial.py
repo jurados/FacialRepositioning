@@ -28,7 +28,6 @@ while True:
             cv.putText(img=captura,text='No encontrado',org=(x,y-5),fontFace=1,fontScale=1.3,color=(255,0,0),thickness=1)
             cv.rectangle(img=captura, pt1=(x,y), pt2=(x+e1,y+e2), color=(0,255,0), thickness=2)
         
-
     cv.imshow("Resultados",captura)
 
     if cv.waitKey(1) == ord('q'): break
