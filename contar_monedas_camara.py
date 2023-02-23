@@ -1,3 +1,7 @@
+# !/usr/bin/env python
+# coding: utf-8
+# última modificación: Feb 22 / 2023
+
 import cv2 as cv
 import numpy as np
 
@@ -5,16 +9,21 @@ def ordernar_puntos(puntos):
     """
     Objetivo: Definir los puntos guías para generar el contorno
     alrededor de la figura (moendas).
-    -----
+    
     Params:
+    ---------
         puntos: 
-    ----
+
+    Returns:
+    --------- 
+        Conjunto de tres puntos ordenados
 
     """
 
     n_puntos = np.concateante(puntos[0],puntos[1],puntos[2],puntos[3]).tolist()
+    
     # Ordenar los puntos horizontales y verticales
-    y_order = sorted(n_puntos,key=lambda n_puntos:n_puntos[1])
+    y_order  = sorted(n_puntos,key=lambda n_puntos:n_puntos[1])
     x1_order = y_order[:2]
     x1_order = sorted(x1_order,key=lambda x1_order: x1_order[0])
     x2_order = y_order[2:4]
@@ -29,12 +38,12 @@ def alineamiento(imagen, ancho, alto):
     """
 
     imagen_alineada = None
-    grises = cv.cvtColor(imagen, cv.COLOR_BGR2GRAY)
-    tipo_umbral, umbral = cv.threshold(grises,150,255,cv.THRESH_BINARY)
+    grises = cv.cvtColor(src=imagen, code=cv.COLOR_BGR2GRAY)
+    tipo_umbral, umbral = cv.threshold(src=grises, threshold=150, maxval=255, type=cv.THRESH_BINARY)
     cv.imshow("Umbral",umbral)
 
     # Aplicar esto desde el punto 0.
-    contorno, jerarquia = cv.findContours(umbral, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)[0]
+    contorno, jerarquia = cv.findContours(image=umbral, mode=cv.RETR_EXTERNAL, method=cv.CHAIN_APPROX_SIMPLE)[0]
     contorno = sorted(contorno, key=cv.contourArea,reverse=True)
     for c in contorno:
         # La siguiente función permite encontrar un área más cercana a la forma real del objeto
@@ -47,7 +56,7 @@ def alineamiento(imagen, ancho, alto):
             puntos_2 = np.float32([[0,0],[ancho,0],[0,alto],[ancho,alto]])
 
             # Parte fija de la observacion
-            M = cv.getPerspectiveTransform(puntos_1,puntos_2)
+            M = cv.getPerspectiveTransform(src=puntos_1, dst=puntos_2)
             imagen_alineada = cv.warpPerspective(src=imagen, M=M, dsize=(ancho, alto))
 
     return imagen_alineada
@@ -75,7 +84,7 @@ while True:
         suma_2 = 0.0
 
         for c in contorno_2:
-            area = cv.contourArea(c)
+            area = cv.contourArea(contour=c)
 
             # Busca el centro de "masa" o "centroide" de la iamgen
             momentos = cv.moments(array=c)

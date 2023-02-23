@@ -1,3 +1,7 @@
+# !/usr/bin/env python
+# coding: utf-8
+# última modificación: Feb 22 / 2023
+
 import os
 import numpy as np
 import cv2 as cv

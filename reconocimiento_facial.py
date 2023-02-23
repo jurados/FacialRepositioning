@@ -1,3 +1,7 @@
+# !/usr/bin/env python
+# coding: utf-8
+# última modificación: Feb 22 / 2023
+
 # El objetivo es el reconocimiento de rostros, evitando los objetos que generan ruidos
 # Obtieniendo los puntos claves para el reconociemitno
 # Entrenando mucho mejor el modelo y así obtener buenas resuestas
