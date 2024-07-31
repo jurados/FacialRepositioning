@@ -10,6 +10,8 @@
 
 ***
 
+The idea in this project was to approach a little bit to the Python library [opencv](https://opencv.org/), a library focused on Computer Vision.
+
 ## Outline
 
 - `contorno.py`:
