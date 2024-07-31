@@ -1,6 +1,6 @@
 # Reconocimiento Facial
 
-**Author:** Steve Pinilla Jurado
+**Author:** Steve Jurado
 
 **Instructor:** Codigo 369, Academia Apps
 
